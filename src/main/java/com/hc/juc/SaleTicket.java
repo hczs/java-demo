@@ -1,6 +1,7 @@
 package com.hc.juc;
 
 /**
+ * synchronized关键字实现
  * @author ：hc
  * @date ：Created in 2021/8/22 15:58
  * @modified By：
