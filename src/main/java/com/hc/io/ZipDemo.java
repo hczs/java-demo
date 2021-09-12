@@ -58,7 +58,7 @@ public class ZipDemo {
                     int n;
                     while ((n = zip.read(cache)) != -1) {
                         System.out.println("read " + n + " bytes");
-                        byteArrayOutputStream.write(cache);
+                        byteArrayOutputStream.write(cache, 0, n);
                     }
                 }
             }
@@ -74,11 +74,12 @@ public class ZipDemo {
      */
     private static byte[] getFileDataAsBytes(File file) throws IOException {
         byte[] bytes = new byte[1024];
+        int length = 0;
         // 神器，可以临时搞一个输出流存字节数据
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try(InputStream inputStream = new FileInputStream(file)) {
-            while ( inputStream.read(bytes) != -1 ) {
-                byteArrayOutputStream.write(bytes);
+            while ( (length = inputStream.read(bytes)) != -1 ) {
+                byteArrayOutputStream.write(bytes, 0, length);
             }
         }
         return byteArrayOutputStream.toByteArray();
