@@ -6,6 +6,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * 新的时间日期API
@@ -32,6 +33,37 @@ public class DateTimeDemo {
         // 日期的操作和格式化
         dateOperation();
         dateFormat();
+
+        // 时区
+        zoneId();
+    }
+
+    /**
+     * Java 8中的时区操作被很大程度上简化了
+     * 新的时区类java.time.ZoneId是原有的java.util.TimeZone类的替代品。
+     * ZoneId对象可以通过ZoneId.of()方法创建，也可以通过ZoneId.systemDefault()获取系统默认时区：
+     */
+    private static void zoneId() {
+        // 获取系统默认时区
+        ZoneId zoneId = ZoneId.systemDefault();
+        // 自己创建时区
+        ZoneId of = ZoneId.of("Asia/Shanghai");
+        System.out.println("of: " + of);
+        System.out.println("zoneId: " + zoneId);
+        // of参数里面不知道传啥值比较合理？可以通过ZoneId.getAvailableZoneIds()来获取可选择的ZoneId
+        // 也就是所有合法的“区域/城市”字符串
+        Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
+        System.out.println("availableZoneIds: " + availableZoneIds);
+        // 有了ZoneId，我们就可以将一个LocalDate、LocalTime或LocalDateTime对象转化为ZonedDateTime对象
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zoneId);
+        System.out.println("zonedDateTime: " + zonedDateTime);
+
+        // 另一种表示时区的方式是使用ZoneOffset，它是以当前时间和世界标准时间（UTC）/格林威治时间（GMT）的偏差来计算
+        ZoneOffset zoneOffset = ZoneOffset.of("+09:00");
+        LocalDateTime now = LocalDateTime.now();
+        OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, zoneOffset);
+        System.out.println("offsetDateTime: " + offsetDateTime);
     }
 
     /**
@@ -58,6 +90,14 @@ public class DateTimeDemo {
         System.out.println("isoLocalTime：" + isoLocalTime);
         System.out.println("customizeDate：" + customizeDate);
         System.out.println("customizeDateTime：" + customizeDateTime);
+
+        // 将字符串解析成日期对象
+        String strDate = "2021-10-05";
+        String strDateTime = "2021-10-05 19:49:16";
+        LocalDate date = LocalDate.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDateTime dateTime = LocalDateTime.parse(strDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("date: " + date);
+        System.out.println("dateTime: " + dateTime);
     }
 
     /**
