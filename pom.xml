@@ -21,6 +21,12 @@
             <version>5.7.13</version>
         </dependency>
 
+        <!-- cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.5</version>
+        </dependency>
     </dependencies>
 
 </project>
