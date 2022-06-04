@@ -27,6 +27,13 @@
             <artifactId>cglib</artifactId>
             <version>3.2.5</version>
         </dependency>
+
+        <!-- xml json 序列化工具包-->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.19</version>
+        </dependency>
     </dependencies>
 
 </project>
